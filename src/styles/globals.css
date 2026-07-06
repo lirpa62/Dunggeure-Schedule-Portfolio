@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --dunggeure-primary: #8080ff;
+  --dunggeure-dark: #9a94d0;
+  --dunggeure-light: #c8c8ff;
+  --dunggeure-lighter: #f0f0ff;
+  --dunggeure-secondary: #e8e6ff;
+  --dunggeure-tertiary: #aa141d;
+
+  --bg: #ffffff;
+  --bg-secondary: #f7f7ff;
+  --text: #1a1a1a;
+  --text-secondary: #666666;
+  --border: #d8d6ff;
+  --card: #ffffff;
+  --card-hover: #f7f7ff;
+}
+
+.dark {
+  --bg: #111124;
+  --bg-secondary: #1d1b34;
+  --text: #f3f2ff;
+  --text-secondary: #b9b6e8;
+  --border: #3d3a68;
+  --card: #1c1a31;
+  --card-hover: #252243;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  font-size: 17px;
+  scrollbar-gutter: stable;
+  text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family:
+    var(--font-hakgyoansimnadeuri), var(--font-body), "Pretendard", sans-serif;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 16.5px;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* 스크롤바 커스텀 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--dunggeure-light);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dunggeure-primary);
+}
+
+/* 달력 일자 */
+.calendar-day {
+  min-height: 140px;
+  border: 1px solid var(--border);
+  position: relative;
+  transition: all 0.2s;
+}
+.calendar-day:hover {
+  box-shadow: 0 2px 12px rgba(128, 128, 255, 0.18);
+}
+
+.calendar-day-today::after {
+  border: 2px solid var(--dunggeure-primary);
+  border-radius: 0.35rem;
+  box-shadow:
+    0 0 10px 5px rgb(176 135 254 / 18%),
+    0 0 12px rgb(104 16 255 / 42%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 20;
+}
+
+.dark .calendar-day-today::after {
+  border-color: #c8c8ff;
+  box-shadow:
+    0 0 10px 5px rgb(254 250 135 / 18%),
+    0 0 12px rgb(255 204 16 / 42%);
+}
+
+@keyframes scheduleHighlightGlowPulse {
+  0% {
+    box-shadow:
+      0 0 0 3px rgba(128, 128, 255, 0.28),
+      0 0 0 0 rgba(128, 128, 255, 0);
+  }
+  50% {
+    box-shadow:
+      0 0 0 3px rgba(128, 128, 255, 0.55),
+      0 0 22px 6px rgba(128, 128, 255, 0.32);
+  }
+  100% {
+    box-shadow:
+      0 0 0 3px rgba(128, 128, 255, 0.28),
+      0 0 0 0 rgba(128, 128, 255, 0);
+  }
+}
+
+.schedule-highlight-glow-pulse {
+  animation: scheduleHighlightGlowPulse 2s ease-in-out 2 forwards;
+  box-shadow:
+    0 0 0 3px rgba(128, 128, 255, 0.28),
+    0 0 0 0 rgba(128, 128, 255, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .schedule-highlight-glow-pulse {
+    animation: none;
+    box-shadow: 0 0 0 3px rgba(128, 128, 255, 0.38);
+  }
+}
+
+/* 스켈레톤 펄스 — 기본 animate-pulse(opacity 토글)보다 색 대비를 분명히 줌 */
+@keyframes molalaSkeletonPulse {
+  0%,
+  100% {
+    background-color: rgba(200, 200, 255, 0.55);
+  }
+  50% {
+    background-color: rgba(200, 200, 255, 0.95);
+  }
+}
+.skeleton-pulse {
+  animation: molalaSkeletonPulse 1.4s ease-in-out infinite;
+  background-color: rgba(200, 200, 255, 0.55);
+  border-radius: 0.375rem;
+}
+.dark .skeleton-pulse {
+  animation-name: molalaSkeletonPulseDark;
+}
+@keyframes molalaSkeletonPulseDark {
+  0%,
+  100% {
+    background-color: rgba(61, 58, 104, 0.55);
+  }
+  50% {
+    background-color: rgba(61, 58, 104, 0.95);
+  }
+}
+
+/* react-colorful 핸들 크기 축소 + hue/alpha 슬라이더 높이 살짝 키움 */
+.color-field-pop .react-colorful__pointer {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+}
+.color-field-pop .react-colorful__hue,
+.color-field-pop .react-colorful__alpha {
+  height: 14px;
+}
+.color-field-pop .react-colorful__last-control {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
